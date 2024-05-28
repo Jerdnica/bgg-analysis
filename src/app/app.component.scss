@@ -1,0 +1,47 @@
+.flex {
+    display: flex;
+}
+.container {
+    mat-divider {
+        margin: 19px 0;
+    }
+    .left {
+        padding: 20px 30px;
+        .select-form {
+            width: 340px
+        }
+    }
+    .right {
+        width: 50%
+    }
+    .submit {
+        float: right;
+    }
+}
+.slider {
+    width: 340px
+}
+.stroke {
+    padding: 4px 8px;
+    border:1px solid #cecece;
+}
+.example-label-container {
+  display: flex;
+  justify-content: space-between;
+  max-width: 340px;
+}
+
+.bayes-label-container {
+    display: flex;
+    justify-content: space-between;
+    max-width: 200px;
+}
+.bayes-slider {
+    width: 200px;
+}
+.info {
+    color: #b46d3d;
+}
+.my-tooltip {
+    white-space: pre-line;
+}

@@ -1,0 +1,75 @@
+<div class="container flex">
+  <form class="left mat-elevation-z2">
+    <div *ngFor="let select of selects; let i = index" class="stroke" class="flex">
+      <div>
+        <mat-form-field appearance="fill" class="select-form">
+          <mat-label>Game</mat-label>
+          <mat-select #singleSelect [(value)]="selects[i].select" (openedChange)="filterGames('')">
+            <mat-option>
+              <ngx-mat-select-search 
+                #searchInput 
+                placeholderLabel="Search for a bank"
+                (input)="filterGames(searchInput.value)"
+                >
+              </ngx-mat-select-search>
+            </mat-option>
+            <mat-option *ngIf="selects[i].select.name != 'DEFAULT_SELECT_NAME'"[value]="selects[i].select">
+              {{selects[i].select.name}}
+            </mat-option>
+            <mat-option *ngFor="let game of filteredGames" [value]="game">
+              {{ game.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <div class="example-label-container">
+          <label id="example-name-label" class="example-name-label">
+            Weight 
+            <span style="margin-left: 10px;">
+              <span matTooltip="How much you want this particular game to affect final calculation?" aria-label="Information icon" class="info"><i>wtf?</i></span>
+            </span>
+          </label>
+
+          <label class="example-value-label">{{selects[i].weight}}</label>
+        </div>
+        <mat-slider
+            class="slider"
+            max="1"
+            min="0.01"
+            step="0.01"
+            [discrete]="true">
+          <input matSliderThumb [(ngModel)]="selects[i].weight" [ngModelOptions]="{standalone: true}" #slider>
+        </mat-slider>
+      </div> 
+      <div class="trash">
+        <button mat-icon-button aria-label="Remove"  (click)="removeSelect(i)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
+    </div>
+    <button mat-button color="primary" (click)="addSelect()">Add Game</button>
+
+    <mat-divider></mat-divider>
+    <div class="bayes-label-container">
+      <label id="bayes-name-label" class="example-name-label">
+        Smoothing 
+        <span style="margin-left: 10px;">
+          <span  matTooltipClass="my-tooltip" matTooltip="Lower smoothing will make the games with low number of votes show higher because they make a better percentage. Something similar to Bgg average vs Real average" aria-label="Information icon" class="info"><i>wtf?</i></span>
+        </span>
+      </label>
+
+      <label class="example-value-label">{{bayesConstant}}</label>
+    </div>
+    <mat-slider
+    class="bayes-slider"
+    max="100"
+    min="0"
+    step="1"
+    [discrete]="true">
+      <input matSliderThumb [(ngModel)]="bayesConstant" [ngModelOptions]="{standalone: true}" #slider>
+    </mat-slider>
+    <button mat-raised-button color="primary" class="submit" (click)="onSubmit($event)" >Find games</button>
+  </form>
+  <div class="right">
+    <app-results [recommendations]="recommendations" [allGames]="games"></app-results>
+  </div>
+</div>
